@@ -15,7 +15,7 @@ while ($arIblock = $dbIblockList->Fetch()) {
     $arIblocks[$arIblock["ID"]] = $arIblock;
 }
 
-$step = isset($_REQUEST["step"]) && $_REQUEST["step"] > 0 ? intVal($_REQUEST["step"]) : 0;
+$step = isset($_REQUEST["step"]) && $_REQUEST["step"] > 1 ? intVal($_REQUEST["step"]) : 1;
 
 if (!isset($_SESSION["DKY_VKEXPORTER_EXPORT_OPTIONS"])) {
     $_SESSION["DKY_VKEXPORTER_EXPORT_OPTIONS"] = array(
@@ -36,9 +36,9 @@ $url_params_for_del = array("iblock_id", "step", "sessid", "autosave_id", "next"
 $o_tab = new CAdminTabControl("DKYTabControl", array(
     array(
         "DIV" => "vkexporter",
-        "TAB" => "Экспорт в vk",
+        "TAB" => "Экспорт элементов инфоблока в vk",
         "ICON" => "",
-        "TITLE" => "Экспорт элементов инфоблока в vk"
+        "TITLE" => "Шаг $step"
     )
         ));
 ?>
