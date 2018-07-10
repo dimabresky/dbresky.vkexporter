@@ -10,8 +10,8 @@ Loc::loadMessages(__FILE__);
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_admin_after.php");
 
 $arIblocks = array();
-$dbIblockList = CIBlock::GetList(array(), array("ACTIVE" => "Y"));
-while ($arIblock = $dbIblockList->Fetch()) {
+$dbIblockList = Bitrix\Iblock\IblockTable::getList(array("filter" => array("ACTIVE" => "Y")));
+while ($arIblock = $dbIblockList->fetch()) {
     $arIblocks[$arIblock["ID"]] = $arIblock;
 }
 
