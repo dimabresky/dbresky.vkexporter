@@ -20,13 +20,13 @@ $step = isset($_REQUEST["step"]) && $_REQUEST["step"] > 1 ? intVal($_REQUEST["st
 if (!isset($_SESSION["DKY_VKEXPORTER_EXPORT_OPTIONS"])) {
     $_SESSION["DKY_VKEXPORTER_EXPORT_OPTIONS"] = array(
         "IBLOCK_ID" => NULL,
-        "CURRENCY" => "BYN",
+        "CURRENCY" => NULL,
         "UPDATE_EXISTS" => 0,
         "FIELDS" => array(
-            "NAME" => "NAME",
-            "PICTURE" => "DETAIL_PICTURE",
-            "DESCRIPTION" => "DETAIL_TEXT",
-            "PRICE" => NULL
+            "NAME" => array("VALUE" => "NAME", "TITLE" => "Укажите поле для выгрузки в качестве названия"),
+            "PICTURE" => array("VALUE" => "DETAIL_PICTURE", "TITLE" => "Укажите поле для выгрузки в качестве картинки"),
+            "DESCRIPTION" => array("VALUE" => "DETAIL_TEXT", "TITLE" => "Укажите поле для выгрузки в качестве описания"),
+            "PRICE" => array("VALUE" => NULL, "TITLE" => "Укажите поле для выгрузки в качестве цены")
         )
     );
 }
@@ -51,39 +51,94 @@ $o_tab = new CAdminTabControl("DKYTabControl", array(
     switch ($step) {
 
         case 2:
-            break;
-        case 3:
-            break;
 
-        case 1:
-        default:
+            if ($_SESSION["DKY_VKEXPORTER_EXPORT_OPTIONS"]["IBLOCK_ID"] === NULL) {
+                LocalRedirect($APPLICATION->GetCurPageParam("step=1", $url_params_for_del));
+            }
 
-            if ($_REQUEST["iblock_id"] > 0 && isset($arIblocks[$_REQUEST["iblock_id"]]) && check_bitrix_sessid()) {
-                
-                $_SESSION["DKY_VKEXPORTER_EXPORT_OPTIONS"]["IBLOCK_ID"] = intVal($_REQUEST["iblock_id"]);
-                LocalRedirect($APPLICATION->GetCurPageParam("step=2", $url_params_for_del));
-                
+            $arFields = array(
+                "NAME" => "Название",
+                "DETAIL_TEXT" => "Детальное описание",
+                "DETAIL_PICTURE" => "Детальная картинка",
+                "PREVIEW_TEXT" => "Анонс",
+                "PREVIEW_PICTURE" => "Картинка анонса",
+            );
+            
+            $dbList = Bitrix\Iblock\PropertyTable::getList(array("filter" => array("IBLOCK_ID" => $_SESSION["DKY_VKEXPORTER_EXPORT_OPTIONS"]["IBLOCK_ID"])));
+            while ($arProperty = $dbList->fetch()) {
+                $arFields["PROPERTY_" . $arProperty["CODE"]] = $arProperty["NAME"];
             }
             ?>
+
+
+            <? foreach ($_SESSION["DKY_VKEXPORTER_EXPORT_OPTIONS"]["FIELDS"] as $name => $arValue): ?>
+                <tr>
+                    <td width="40%"><label><?= $arValue["TITLE"]?>:</label></td>
+                    <td width="60%">
+                        <select name="FIELDS[<?= $name ?>]">
+                            <option value="">...</option>
+            <? foreach ($arFields as $code => $fname): ?>
+                                <option <? if ($code === $arValue["VALUE"]): ?>selected=""<? endif ?> value="<?= $code ?>"><?= $fname ?></option>
+                            <? endforeach; ?>
+                        </select>
+                    </td>
+                </tr>
+        <? endforeach ?>
+         <tr>
+                    <td width="40%"><label>Укажите валюту поля цены<br>( <b><small>цены должны быть предварительно сконвертированы в указанную валюту</small></b> ):</label></td>
+                    <td width="60%">
+                        <select name="CURRENCY">
+            <? foreach (array(
+                "USD" => "USD",
+                "RUB" => "RUB",
+                "EUR" => "EUR",
+                "BYN" => "BYN",
+            ) as $code => $name): ?>
+                                <option <? if ($code === $_SESSION["DKY_VKEXPORTER_EXPORT_OPTIONS"]["CURRENCY"]): ?>selected=""<? endif ?> value="<?= $code ?>"><?= $name ?></option>
+                            <? endforeach; ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="40%"><label>Обновлять ранее выгруженные элементы:</label></td>
+                    <td width="60%">
+                        <input <?if(1 === (int)$_SESSION["DKY_VKEXPORTER_EXPORT_OPTIONS"]["UPDATE_EXISTS"]):?>checked=""<?endif?> type="checkbox" value="1" name="UPDATE_EXISTS">
+                    </td>
+                </tr>
+        <?
+        break;
+    case 3:
+        break;
+
+    case 1:
+    default:
+
+        if ($_REQUEST["IBLOCK_ID"] > 0 && isset($arIblocks[$_REQUEST["IBLOCK_ID"]]) && check_bitrix_sessid()) {
+
+            $_SESSION["DKY_VKEXPORTER_EXPORT_OPTIONS"]["IBLOCK_ID"] = intVal($_REQUEST["IBLOCK_ID"]);
+            LocalRedirect($APPLICATION->GetCurPageParam("step=2", $url_params_for_del));
+        }
+        ?>
             <tr>
                 <td width="40%"><label>Выберите инфоблок для выгрузки:</label></td>
                 <td width="60%">
-                    <select name="iblock_id">
+                    <select name="IBLOCK_ID">
                         <option value="">...</option>
-                        <? foreach ($arIblocks as $arIblock): ?>
+        <? foreach ($arIblocks as $arIblock): ?>
                             <option <? if ((int) $arIblock["ID"] === (int) $_SESSION["DKY_VKEXPORTER_EXPORT_OPTIONS"]["IBLOCK_ID"]): ?>selected=""<? endif ?> value="<?= $arIblock["ID"] ?>"><?= $arIblock["NAME"] ?></option>
-                        <? endforeach; ?>
+        <? endforeach; ?>
                     </select>
                 </td>
             </tr>
-            <? $o_tab->Buttons();
-            ?>
+                        <? $o_tab->Buttons();
+                        ?>
             <input type="submit" name="next" value="Далее" title="Далее" class="adm-btn-save">
-        <?
-    }
-    $o_tab->End();
-    ?>
+    <?
+}
+$o_tab->End();
+?>
 
 </form>
-<?
-require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/epilog_admin.php");
+    <?
+    require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/epilog_admin.php");
+    
