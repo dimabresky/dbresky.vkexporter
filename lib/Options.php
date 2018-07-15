@@ -1,0 +1,59 @@
+<?php
+
+namespace dky\vkexporter;
+
+/**
+ * Класс настроек модуля
+ *
+ * @author ИП Бреский Дмитрий Игоревич <dimabresky@gmail.com>
+ */
+class Options {
+
+    public function __construct() {
+        if (!isset($_SESSION["DKY_VKEXPORTER_EXPORT_OPTIONS"])) {
+            $_SESSION["DKY_VKEXPORTER_EXPORT_OPTIONS"] = (object) array(
+                "iblock_id" => NULL,
+                "name" => "NAME",
+                "picture" => "DETAIL_PICTURE",
+                "description" => "DETAIL_TEXT",
+                "price" => NULL,
+                "currency" => NULL,
+                "update_exists" => 1,
+                "access_token" => NULL
+            );
+        }
+    }
+    
+    public function get() {
+        return $_SESSION["DKY_VKEXPORTER_EXPORT_OPTIONS"];
+    }
+    
+    /**
+     * Сохраняет значение параметров выгрузки
+     * @param array $options
+     */
+    public function save (array $options) {
+        
+        $o = &$_SESSION["DKY_VKEXPORTER_EXPORT_OPTIONS"];
+        
+        foreach ($options as $fcode => $fval) {
+            
+            switch ($fcode) {
+
+                case "iblock_id":
+                case "name":
+                case "picture":
+                case "description":
+                case "price":
+                case "access_token":
+                case "currency":    
+                    $o->$fcode = $fval;
+                    break;
+
+                case "update_exists":
+                    $o->$fcode = boolval($fval);
+                    break;
+            }
+        }
+    }
+}

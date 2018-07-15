@@ -2,9 +2,9 @@
 
 $classes = array(
     
-    "dky\\vkexporter\\Manager" => "lib/Manager.php",
-    "dky\\vkexporter\\Validator" => "lib/Validator.php",
     "dky\\vkexporter\\Connector" => "lib/Connector.php",
+    "dky\\vkexporter\\Options" => "lib/Options.php",
+    "dky\\vkexporter\\Tools" => "lib/Tools.php",
     
 );
 
