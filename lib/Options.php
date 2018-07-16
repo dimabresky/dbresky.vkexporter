@@ -1,6 +1,6 @@
 <?php
 
-namespace dky\vkexporter;
+namespace dki\vkexporter;
 
 /**
  * Класс настроек модуля
@@ -10,8 +10,8 @@ namespace dky\vkexporter;
 class Options {
 
     public function __construct() {
-        if (!isset($_SESSION["DKY_VKEXPORTER_EXPORT_OPTIONS"])) {
-            $_SESSION["DKY_VKEXPORTER_EXPORT_OPTIONS"] = (object) array(
+        if (!isset($_SESSION["dki_VKEXPORTER_EXPORT_OPTIONS"])) {
+            $_SESSION["dki_VKEXPORTER_EXPORT_OPTIONS"] = (object) array(
                 "iblock_id" => NULL,
                 "name" => "NAME",
                 "picture" => "DETAIL_PICTURE",
@@ -25,7 +25,7 @@ class Options {
     }
     
     public function get() {
-        return $_SESSION["DKY_VKEXPORTER_EXPORT_OPTIONS"];
+        return $_SESSION["dki_VKEXPORTER_EXPORT_OPTIONS"];
     }
     
     /**
@@ -34,7 +34,7 @@ class Options {
      */
     public function save (array $options) {
         
-        $o = &$_SESSION["DKY_VKEXPORTER_EXPORT_OPTIONS"];
+        $o = &$_SESSION["dki_VKEXPORTER_EXPORT_OPTIONS"];
         
         foreach ($options as $fcode => $fval) {
             

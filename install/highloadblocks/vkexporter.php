@@ -1,10 +1,10 @@
 <?php
 
 return array(
-    "table" => "dky_vkexporter",
+    "table" => "dki_vkexporter",
     "table_data" => array(
-        "NAME" => "DKYVKEXPORTER",
-        "ERR" => "Ошибка при создании highloadblock'a dky_vkexporter",
+        "NAME" => "dkiVKEXPORTER",
+        "ERR" => "Ошибка при создании highloadblock'a dki_vkexporter",
         "LANGS" => array(
             "ru" => 'Таблица экспортированных данных',
             "en" => "Vkexporter"

@@ -1,6 +1,6 @@
 <?php
 
-namespace dky\vkexporter;
+namespace dki\vkexporter;
 
 /**
  * Класс подключения к сервису vk товары

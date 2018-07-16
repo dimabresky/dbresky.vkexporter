@@ -5,17 +5,17 @@ use Bitrix\Main\Localization\Loc;
 
 Loc::loadMessages(__FILE__);
 
-\Bitrix\Main\Loader::includeModule("dky.vkexporter");
+\Bitrix\Main\Loader::includeModule("dki.vkexporter");
 
-$connector = new \dky\vkexporter\Connector;
-$options = new dky\vkexporter\Options;
+$connector = new \dki\vkexporter\Connector;
+$options = new dki\vkexporter\Options;
 $request = \Bitrix\Main\Application::getInstance()->getContext()->getRequest();
 
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_admin_after.php");
 
 $step = $request->get("step") > 1 ? intVal($request->get("step")) : 1;
 
-$o_tab = new CAdminTabControl("DKYTabControl", array(
+$o_tab = new CAdminTabControl("dkiTabControl", array(
     array(
         "DIV" => "vkexporter",
         "TAB" => "Экспорт элементов инфоблока в vk",

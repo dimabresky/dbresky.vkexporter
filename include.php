@@ -2,11 +2,11 @@
 
 $classes = array(
     
-    "dky\\vkexporter\\Connector" => "lib/Connector.php",
-    "dky\\vkexporter\\Options" => "lib/Options.php",
-    "dky\\vkexporter\\Tools" => "lib/Tools.php",
+    "dki\\vkexporter\\Connector" => "lib/Connector.php",
+    "dki\\vkexporter\\Options" => "lib/Options.php",
+    "dki\\vkexporter\\Tools" => "lib/Tools.php",
     
 );
 
 
-CModule::AddAutoloadClasses("dky.vkexporter", $classes);
+CModule::AddAutoloadClasses("dki.vkexporter", $classes);

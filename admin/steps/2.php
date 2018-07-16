@@ -1,6 +1,6 @@
 <?php
-if (!empty(\dky\vkexporter\Tools::checkFields(array("iblock_id" => $options->get()->iblock_id)))) {
-    \LocalRedirect($APPLICATION->GetCurPageParam("step=1", \dky\vkexporter\Tools::getURLParametersForDel()));
+if (!empty(\dki\vkexporter\Tools::checkFields(array("iblock_id" => $options->get()->iblock_id)))) {
+    \LocalRedirect($APPLICATION->GetCurPageParam("step=1", \dki\vkexporter\Tools::getURLParametersForDel()));
 }
 
 if (check_bitrix_sessid()) {
@@ -13,16 +13,16 @@ if (check_bitrix_sessid()) {
         "update_exists" => $request->get("update_exists")
     );
 
-    $arErrors = \dky\vkexporter\Tools::checkFields($arFieldsForCheck);
+    $arErrors = \dki\vkexporter\Tools::checkFields($arFieldsForCheck);
 
     if (empty($arErrors)) {
-        LocalRedirect($APPLICATION->GetCurPageParam("step=3", \dky\vkexporter\Tools::getURLParametersForDel()));
+        LocalRedirect($APPLICATION->GetCurPageParam("step=3", \dki\vkexporter\Tools::getURLParametersForDel()));
     } else {
         $Loc = Loc;
         ob_start();
         CAdminMessage::ShowMessage(array(
             "MESSAGE" => implode('<br>', array_map(function ($error_code) {
-                                return \Bitrix\Main\Localization\Loc::getMessage("DKY_VKEXPORTER_" . $error_code);
+                                return \Bitrix\Main\Localization\Loc::getMessage("dki_VKEXPORTER_" . $error_code);
                             }, $arErrors)),
             "TYPE" => "ERROR",
             "HTML" => true
@@ -38,7 +38,7 @@ $arFields = array_merge(array(
     "DETAIL_PICTURE" => "Детальная картинка",
     "PREVIEW_TEXT" => "Анонс",
     "PREVIEW_PICTURE" => "Картинка анонса",
-        ), \dky\vkexporter\Tools::getIblockProperties($options->get()->iblock));
+        ), \dki\vkexporter\Tools::getIblockProperties($options->get()->iblock));
 ?>
 
 
@@ -66,7 +66,7 @@ foreach ($options->get() as $name => $value):
     <td width="60%">
         <select name="currency">
             <?
-            foreach (\dky\vkexporter\Tools::getAvailCurrency() as $code => $name):
+            foreach (\dki\vkexporter\Tools::getAvailCurrency() as $code => $name):
                 ?>
                 <option <? if ($code === $options->get()->currency): ?>selected=""<? endif ?> value="<?= $code ?>"><?= $name ?></option>
             <? endforeach; ?>

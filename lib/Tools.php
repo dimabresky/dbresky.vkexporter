@@ -1,6 +1,6 @@
 <?php
 
-namespace dky\vkexporter;
+namespace dki\vkexporter;
 
 \Bitrix\Main\Loader::includeModule("iblock");
 
@@ -35,7 +35,7 @@ class Tools {
      */
     public function getURLParametersForDel() {
 
-        return array("iblock_id", "step", "sessid", "autosave_id", "next", "DKYTabControl_active_tab");
+        return array("iblock_id", "step", "sessid", "autosave_id", "next", "dkiTabControl_active_tab");
     }
 
     /**

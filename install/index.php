@@ -7,17 +7,17 @@ use Bitrix\Main\Localization\Loc,
 
 Loc::loadMessages(__FILE__);
 
-class dky_vkexporter extends CModule {
+class dki_vkexporter extends CModule {
 
-    public $MODULE_ID = "dky.vkexporter";
+    public $MODULE_ID = "dki.vkexporter";
     public $MODULE_VERSION;
     public $MODULE_VERSION_DATE;
     public $MODULE_NAME;
     public $MODULE_DESCRIPTION;
     public $MODULE_GROUP_RIGHTS = "N";
-    public $namespaceFolder = "dky";
+    public $namespaceFolder = "dki";
     public $adminFilesList = array(
-        "dky_vkexporter.php"
+        "dki_vkexporter.php"
     );
     public $highloadblocksFiles = array();
 
@@ -30,9 +30,9 @@ class dky_vkexporter extends CModule {
             $this->MODULE_VERSION = $arModuleVersion["VERSION"];
             $this->MODULE_VERSION_DATE = $arModuleVersion["VERSION_DATE"];
         }
-        $this->MODULE_NAME = Loc::getMessage("DKY_MODULE_NAME");
-        $this->MODULE_DESCRIPTION = Loc::getMessage("DKY_MODULE_DESC");
-        $this->PARTNER_NAME = Loc::getMessage("DKY_PARTNER_NAME");
+        $this->MODULE_NAME = Loc::getMessage("dki_MODULE_NAME");
+        $this->MODULE_DESCRIPTION = Loc::getMessage("dki_MODULE_DESC");
+        $this->PARTNER_NAME = Loc::getMessage("dki_PARTNER_NAME");
         $this->PARTNER_URI = "https://github.com/dimabresky/";
 
         Loader::includeModule("highloadblock");
@@ -148,7 +148,7 @@ class dky_vkexporter extends CModule {
                 $arr_field["ENTITY_ID"] = str_replace("{{table_id}}", $table_id, $arr_field["ENTITY_ID"]);
 
                 if (!$oUserTypeEntity->Add($arr_field)) {
-                    throw new Exception(Loc::getMessage("DKY_HL_ADD_ERROR") . $arr_field["ENTITY_ID"] . "[" . $arr_field["FIELD_NAME"] . "]" . $oUserTypeEntity->LAST_ERROR);
+                    throw new Exception(Loc::getMessage("dki_HL_ADD_ERROR") . $arr_field["ENTITY_ID"] . "[" . $arr_field["FIELD_NAME"] . "]" . $oUserTypeEntity->LAST_ERROR);
                 }
             }
             
