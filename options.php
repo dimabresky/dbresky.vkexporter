@@ -1,11 +1,14 @@
 <?php
+
+use Bitrix\Main\Localization\Loc;
+
+Loc::loadMessages(__FILE__);
+
 if (!$USER->isAdmin())
     return;
 
 $mid = "dki.vkexporter";
 
-//\Bitrix\Main\Loader::includeModule("highloadblock");
-//\Bitrix\Main\Loader::includeModule("iblock");
 \Bitrix\Main\Loader::includeModule($mid);
 
 global $APPLICATION;
@@ -43,8 +46,8 @@ function renderOptions($arOptions, $mid) {
 
 $main_options = array(
     array(
-        "APP_ID" => array("DESC" => "ID приложения", "VALUES" => "", 'TYPE' => 'text'),
-        "APP_SECRET" => array("DESC" => "Защищенный ключ", "VALUES" => "", 'TYPE' => 'text')
+        "APP_ID" => array("DESC" => Loc::getMessage("dki_VKEXPORTER_APP_ID_TITLE"), "VALUES" => "", 'TYPE' => 'text'),
+        "APP_SECRET" => array("DESC" => Loc::getMessage("dki_VKEXPORTER_APP_SECRET_TITLE"), "VALUES" => "", 'TYPE' => 'text')
     ),
 );
 
@@ -52,7 +55,7 @@ $main_options = array(
 $tabs = array(
     array(
         "DIV" => "edit1",
-        "TAB" => "Настройки модуля",
+        "TAB" => Loc::getMessage("dki_VKEXPORTER_TAB_TITLE"),
         "ICON" => "",
         "TITLE" => ""
     )
@@ -89,8 +92,8 @@ $o_tab->Begin();
     }
     $o_tab->Buttons();
     ?>
-    <input type="submit" name="save" value="Сохранить" title="Сохранить" class="adm-btn-save">
-    <input type="submit" name="reset" title="Сбросить" OnClick="return confirm('Сбросить')" value="Сбросить">
+    <input type="submit" name="save" value="<?= Loc::getMessage("dki_VKEXPORTER_SAVE_BTN_TITLE")?>" title="<?= Loc::getMessage("dki_VKEXPORTER_SAVE_BTN_TITLE")?>" class="adm-btn-save">
+    <input type="submit" name="reset" title="<?= Loc::getMessage("dki_VKEXPORTER_RESET_BTN_TITLE")?>" OnClick="return confirm('<?= Loc::getMessage("dki_VKEXPORTER_RESET_BTN_TITLE")?>?')" value="<?= Loc::getMessage("dki_VKEXPORTER_RESET_BTN_TITLE")?>">
     <?= bitrix_sessid_post(); ?>
     <? $o_tab->End(); ?>
 </form>
