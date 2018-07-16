@@ -23,6 +23,8 @@ $o_tab = new CAdminTabControl("dkiTabControl", array(
     )
         ));
 $APPLICATION->ShowViewContent('errors');
+
+if ($step !== 3):
 ?>
 <form action="<? $APPLICATION->GetCurPage() ?>" method="get">
     <input type="hidden" value="<?= LANGUAGE_ID ?>" name="lang">
@@ -36,5 +38,5 @@ $APPLICATION->ShowViewContent('errors');
     ?>
 
 </form>
-<?
+<?else: include_once "steps/3.php"; endif;
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/epilog_admin.php");
