@@ -3,7 +3,7 @@
 return array(
     "table" => "dki_vkexporter",
     "table_data" => array(
-        "NAME" => "dkiVKEXPORTER",
+        "NAME" => "DKIVKEXPORTER",
         "ERR" => "Ошибка при создании highloadblock'a dki_vkexporter",
         "LANGS" => array(
             "ru" => 'Таблица экспортированных данных',
