@@ -1,4 +1,7 @@
 <?php
+
+use Bitrix\Main\Localization\Loc;
+
 if (empty(\dki\vkexporter\Tools::checkFields(array("iblock_id" => $request->get("iblock_id")))) && check_bitrix_sessid()) {
 
     $options->save(array("iblock_id" => $request->get("iblock_id")));
@@ -6,7 +9,7 @@ if (empty(\dki\vkexporter\Tools::checkFields(array("iblock_id" => $request->get(
 }
 ?>
 <tr>
-    <td width="40%"><label>Выберите инфоблок для выгрузки:</label></td>
+    <td width="40%"><label><?= Loc::getMessage("dki_VKEXPORTER_IBLOCK_FIELD_TITLE")?>:</label></td>
     <td width="60%">
         <select name="iblock_id">
             <option value="">...</option>
@@ -18,4 +21,4 @@ if (empty(\dki\vkexporter\Tools::checkFields(array("iblock_id" => $request->get(
 </tr>
 <? $o_tab->Buttons();
 ?>
-<input type="submit" name="next" value="Далее" title="Далее" class="adm-btn-save">
+<input type="submit" name="next" value="<?= Loc::getMessage("dki_VKEXPORTER_NEXT_BTN_TITLE")?>" title="<?= Loc::getMessage("dki_VKEXPORTER_NEXT_BTN_TITLE")?>" class="adm-btn-save">

@@ -7,7 +7,6 @@ Loc::loadMessages(__FILE__);
 
 \Bitrix\Main\Loader::includeModule("dki.vkexporter");
 
-$connector = new \dki\vkexporter\Connector;
 $options = new dki\vkexporter\Options;
 $request = \Bitrix\Main\Application::getInstance()->getContext()->getRequest();
 
@@ -18,9 +17,9 @@ $step = $request->get("step") > 1 ? intVal($request->get("step")) : 1;
 $o_tab = new CAdminTabControl("dkiTabControl", array(
     array(
         "DIV" => "vkexporter",
-        "TAB" => "Экспорт элементов инфоблока в vk",
+        "TAB" => Loc::getMessage("dki_VKEXPORTER_TAB_TITLE"),
         "ICON" => "",
-        "TITLE" => "Шаг $step"
+        "TITLE" => Loc::getMessage("dki_VKEXPORTER_TAB_SUBTITLE", array("#step#" => $step))
     )
         ));
 $APPLICATION->ShowViewContent('errors');
