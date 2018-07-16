@@ -114,9 +114,13 @@ class dki_vkexporter extends CModule {
     }
     
     public function addOptions() {
+        Option::set($this->MODULE_ID, "APP_ID");
+        Option::set($this->MODULE_ID, "APP_SECRET");
     }
 
     public function deleteOptions() {
+        Option::set($this->MODULE_ID, array("name" => "APP_ID"));
+        Option::set($this->MODULE_ID, array("name" => "APP_SECRET"));
     }
   
     public function createHighloadblockTables() {
