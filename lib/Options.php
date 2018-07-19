@@ -19,9 +19,14 @@ class Options {
                 "price" => NULL,
                 "currency" => NULL,
                 "update_exists" => 1,
-                "access_token" => NULL
+                "access_token" => NULL,
+                "app_id" => NULL,
+                "app_secrect" => NULL
             );
         }
+        
+        $_SESSION["dki_VKEXPORTER_EXPORT_OPTIONS"]->app_id = \Bitrix\Main\Config\Option::get("dki.vkexporter", "APP_ID");
+        $_SESSION["dki_VKEXPORTER_EXPORT_OPTIONS"]->app_secrect = \Bitrix\Main\Config\Option::get("dki.vkexporter", "APP_SECRET");
     }
     
     public function get() {
