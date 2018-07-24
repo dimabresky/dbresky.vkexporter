@@ -9,6 +9,18 @@ if (empty(\dki\vkexporter\Tools::checkFields(array("iblock_id" => $request->get(
 }
 ?>
 <tr>
+    <td width="40%"><label><?= Loc::getMessage("dki_VKEXPORTER_APP_ID_FIELD_TITLE")?>:</label></td>
+    <td width="60%">
+        <input type="text" name="app_id" value="<?= $options->get()->app_id?>">
+    </td>
+</tr>
+<tr>
+    <td width="40%"><label><?= Loc::getMessage("dki_VKEXPORTER_APP_SECRET_FIELD_TITLE")?>:</label></td>
+    <td width="60%">
+        <input type="text" name="app_secret" value="<?= $options->get()->app_secret?>">
+    </td>
+</tr>
+<tr>
     <td width="40%"><label><?= Loc::getMessage("dki_VKEXPORTER_IBLOCK_FIELD_TITLE")?>:</label></td>
     <td width="60%">
         <select name="iblock_id">

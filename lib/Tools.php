@@ -2,8 +2,6 @@
 
 namespace dki\vkexporter;
 
-\Bitrix\Main\Loader::includeModule("iblock");
-
 /**
  * Класс "инструментов" модуля
  *

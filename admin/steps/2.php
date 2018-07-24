@@ -48,7 +48,7 @@ $arFields = array_merge(array(
 <?
 foreach ($options->get() as $name => $value):
 
-    if (in_array($name, array("iblock_id", "currency", "update_exists", "access_token"))) {
+    if (in_array($name, array("iblock_id", "currency", "update_exists", "access_token", "app_id", "app_secret"))) {
         continue;
     }
     ?>
