@@ -9,5 +9,8 @@ namespace dki\vkexporter;
  */
 class Connector {
     
-    
+    public static function getAutorizationUrl($app_id) {
+       
+        
+    }
 }
