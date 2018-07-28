@@ -1,6 +1,8 @@
 <?php
 
-if (!strlen($option->get()->access_token)):?>
-<script>window.open("/bitrix/admin/dki_vk_access_token.php?lang=ru&action=get");</script>
-<?else:?>
+if (!strlen($options->get()->access_token)):?>
+    Идет получение токена доступа...
+    <script>window.jsUtils.OpenWindow('<?= \dki\vkexporter\Tools::getVkAuthorizationURL($options->get()->app_id)?>', 700, 600);</script>
+<?else: echo $options->get()->access_token?>
+    
 <?endif;?>

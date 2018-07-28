@@ -17,7 +17,8 @@ class dki_vkexporter extends CModule {
     public $MODULE_GROUP_RIGHTS = "N";
     public $namespaceFolder = "dki";
     public $adminFilesList = array(
-        "dki_vkexporter.php"
+        "dki_vkexporter.php",
+        
     );
     public $highloadblocksFiles = array();
 

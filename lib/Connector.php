@@ -8,9 +8,5 @@ namespace dki\vkexporter;
  * @author ИП Бреский Дмитрий Игоревич <dimabresky@gmail.com>
  */
 class Connector {
-    
-    public static function getAutorizationUrl($app_id) {
-       
-        
-    }
+
 }
