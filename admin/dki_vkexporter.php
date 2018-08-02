@@ -25,22 +25,18 @@ $o_tab = new CAdminTabControl("dkiTabControl", array(
 $APPLICATION->ShowViewContent('errors');
 
 if ($step !== 3):
+?>
+<form action="<? $APPLICATION->GetCurPage() ?>" method="get">
+    <input type="hidden" value="<?= LANGUAGE_ID ?>" name="lang">
+    <input type="hidden" value="<?= $step ?>" name="step">
+    <?
+    echo bitrix_sessid_post();
+    $o_tab->Begin();
+    $o_tab->BeginNextTab();
+    include_once "steps/$step.php";
+    $o_tab->End();
     ?>
-    <form action="<? $APPLICATION->GetCurPage() ?>" method="get">
-        
-        <input type="hidden" value="<?= LANGUAGE_ID ?>" name="lang">
-        <input type="hidden" value="<?= $step ?>" name="step">
-        
-        <?
-        echo bitrix_sessid_post();
-        $o_tab->Begin();
-        $o_tab->BeginNextTab();
-        include_once "steps/$step.php";
-        $o_tab->End();
-        ?>
 
-    </form>
-<?
-else: include_once "steps/3.php";
-endif;
+</form>
+<?else: include_once "steps/3.php"; endif;
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/epilog_admin.php");
