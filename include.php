@@ -2,7 +2,7 @@
 
 $classes = array(
     
-    "dki\\vkexporter\\Connector" => "lib/Connector.php",
+    "dki\\vkexporter\\Gateway" => "lib/Gateway.php",
     "dki\\vkexporter\\Options" => "lib/Options.php",
     "dki\\vkexporter\\Tools" => "lib/Tools.php",
     "dki\\vkexporter\\tables\\Options" => "lib/tables/Options.php",
