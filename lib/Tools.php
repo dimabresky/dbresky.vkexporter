@@ -33,7 +33,7 @@ class Tools {
      */
     public function getURLParametersForDel() {
 
-        return array("iblock_id", "step", "sessid", "autosave_id", "next", "dkiTabControl_active_tab", "name", "picture", "description", "price", "currency", "update_exists");
+        return array("iblock_id", "step", "sessid", "autosave_id", "next", "dkiTabControl_active_tab", "name", "picture", "description", "price", "currency", "category");
     }
 
     /**
@@ -49,7 +49,7 @@ class Tools {
             "BYN" => "BYN",
         );
     }
-
+    
     public function getIblockProperties($iblock) {
 
         static $arProperties = array();
@@ -95,6 +95,12 @@ class Tools {
 
                 case "currency":
                     if (!isset(self::getAvailCurrency()[$fval])) {
+                        $arErrors[] = strtoupper($fcode) . "_ERROR";
+                    }
+                    break;
+                    
+                case "category":
+                    if (!isset($_SESSION["dki_VKEXPORTER_MARKET_CATEGORIES"][$fval])) {
                         $arErrors[] = strtoupper($fcode) . "_ERROR";
                     }
                     break;
