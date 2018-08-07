@@ -6,6 +6,8 @@ $classes = array(
     "dki\\vkexporter\\Options" => "lib/Options.php",
     "dki\\vkexporter\\Tools" => "lib/Tools.php",
     "dki\\vkexporter\\tables\\Options" => "lib/tables/Options.php",
+    "dki\\vkexporter\\tables\\Albums" => "lib/tables/Albums.php",
+    "dki\\vkexporter\\tables\\Table" => "lib/tables/Table.php",
     
 );
 
