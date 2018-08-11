@@ -211,46 +211,6 @@ return array(
                 'ru' => '',
                 'en' => '',
             ),
-        ),
-        array(
-                "ENTITY_ID" => 'HLBLOCK_{{table_id}}',
-            "FIELD_NAME" => "UF_VK_IMAGE_ID",
-            "USER_TYPE_ID" => 'integer',
-            "XML_ID" => "",
-            "SORT" => 100,
-            "MULTIPLE" => 'N',
-            'MANDATORY' => 'N',
-            'SHOW_FILTER' => 'N',
-            'SHOW_IN_LIST' => 'Y',
-            'IS_SEARCHABLE' => 'N',
-            'SETTINGS' => array(
-                'DEFAULT_VALUE' => "",
-                'SIZE' => '20',
-                'ROWS' => 1,
-                'MIN_LENGTH' => 0,
-                'MAX_LENGTH' => 0,
-                'REGEXP' => ''
-            ),
-            'EDIT_FORM_LABEL' => array(
-                'ru' => 'ID изображения в vk',
-                'en' => 'Image vk id',
-            ),
-            'LIST_COLUMN_LABEL' => array(
-                'ru' => 'ID изображения в vk',
-                'en' => 'Image vk id',
-            ),
-            'LIST_FILTER_LABEL' => array(
-                'ru' => 'ID изображения в vk',
-                'en' => 'Image vk id',
-            ),
-            'ERROR_MESSAGE' => array(
-                'ru' => 'Ошибка при заполнении поля "ID изображения в vk" ',
-                'en' => 'An error in completing the field "Image vk id"',
-            ),
-            'HELP_MESSAGE' => array(
-                'ru' => '',
-                'en' => '',
-            ),
         )
     )
 );
