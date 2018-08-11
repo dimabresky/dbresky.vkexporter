@@ -2,9 +2,9 @@
 
 use Bitrix\Main\Localization\Loc;
 
-if (empty(\dki\vkexporter\Tools::checkFields(array("iblock_id" => $request->get("iblock_id")))) && check_bitrix_sessid()) {
+if (empty(\dki\vkexporter\Tools::checkFields(array("iblock_id" => $request->get("iblock_id"), "app_id" => $request->get("app_id"), "app_secret" => $request->get("app_secret")))) && check_bitrix_sessid()) {
 
-    $options->save(array("iblock_id" => $request->get("iblock_id")));
+    $options->save(array("iblock_id" => $request->get("iblock_id"), "app_id" => $request->get("app_id"), "app_secret" => $request->get("app_secret")));
     LocalRedirect($APPLICATION->GetCurPageParam("step=2", \dki\vkexporter\Tools::getURLParametersForDel()));
 }
 ?>

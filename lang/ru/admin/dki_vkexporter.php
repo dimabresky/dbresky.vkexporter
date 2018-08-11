@@ -33,3 +33,5 @@ $MESS["dki_VKEXPORTER_CURRENCY_ERROR"] = "Укажите валюту";
 $MESS["dki_VKEXPORTER_PRICE_ERROR"] = "Укажите поле в качестве цены";
 $MESS["dki_VKEXPORTER_ACCESS_TOKEN_ERROR"] = "Отсутствует access token";
 $MESS["dki_VKEXPORTER_GETTING_ACCESS_TOKEN"] = "Идет получение токена доступа...";
+$MESS["dki_VKEXPORTER_ALBUM_FIELD_TITLE"] = "Подборка";
+$MESS["dki_VKEXPORTER_ALBUM_CREATE_FROM_PARENT_SECTION_FIELD_TITLE"] = "Создавать подборку из родительского раздела элемента (<small>если установить, то будет игнорироваться поле \"Подборка\")";

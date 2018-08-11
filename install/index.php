@@ -18,8 +18,8 @@ class dki_vkexporter extends CModule {
     public $namespaceFolder = "dki";
     public $adminFilesList = array(
         "dki_vkexporter.php",
-        "dki_vkexporter_albums_edit.php",
-        "dki_vkexporter_albums_list.php"
+        "dki_vk_access_token.php",
+        "dki_vkexporter_add_album.php"
     );
     public $highloadblocksFiles = array();
 
@@ -115,15 +115,10 @@ class dki_vkexporter extends CModule {
         
     }
     
-    public function addOptions() {
-        Option::set($this->MODULE_ID, "APP_ID");
-        Option::set($this->MODULE_ID, "APP_SECRET");
-    }
+    public function addOptions() {}
+    
 
-    public function deleteOptions() {
-        Option::set($this->MODULE_ID, array("name" => "APP_ID"));
-        Option::set($this->MODULE_ID, array("name" => "APP_SECRET"));
-    }
+    public function deleteOptions() {}
   
     public function createHighloadblockTables() {
 
@@ -133,8 +128,7 @@ class dki_vkexporter extends CModule {
 
             $result = Bitrix\Highloadblock\HighloadBlockTable::add(array(
                         'NAME' => $arr["table_data"]["NAME"],
-                        'TABLE_NAME' => $arr["table"],
-//                        'LANGS' => $arr["table_data"]["LANGS"]
+                        'TABLE_NAME' => $arr["table"]
             ));
 
             if (!$result->isSuccess()) {

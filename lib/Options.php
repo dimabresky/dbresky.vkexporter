@@ -44,12 +44,11 @@ class Options {
                         "category" => NULL,
                         "access_token" => NULL,
                         "app_id" => NULL,
-                        "app_secret" => NULL
+                        "app_secret" => NULL,
+                        "album" => NULL,
+                        "album_create_from_parent_section" => 0
             );
-        }
-
-        $this->_options->app_id = \Bitrix\Main\Config\Option::get("dki.vkexporter", "APP_ID");
-        $this->_options->app_secret = \Bitrix\Main\Config\Option::get("dki.vkexporter", "APP_SECRET");
+        }   
         
     }
 
@@ -75,6 +74,10 @@ class Options {
                 case "access_token":
                 case "currency":
                 case "category":
+                case "album":
+                case "album_create_from_parent_section":
+                case "app_id":
+                case "app_secret":
                     $this->_options->$fcode = $fval;
                     break;
             }

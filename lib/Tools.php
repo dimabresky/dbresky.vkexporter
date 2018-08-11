@@ -33,7 +33,7 @@ class Tools {
      */
     public function getURLParametersForDel() {
 
-        return array("iblock_id", "step", "sessid", "autosave_id", "next", "dkiTabControl_active_tab", "name", "picture", "description", "price", "currency", "category");
+        return array("iblock_id", "step", "sessid", "autosave_id", "next", "dkiTabControl_active_tab", "name", "picture", "description", "price", "currency", "category", "album", "album_create_from_parent_section");
     }
 
     /**
