@@ -108,11 +108,13 @@ class dki_vkexporter extends CModule {
     }
     
     public function addModuleDependencies () {
-        
+        RegisterModuleDependences("", "DKIVKEXPORTERALBUMSOnAfterAdd", $this->MODULE_ID, "\\dki\\vkexporter\\EventsHandlers", "onAfterAddAlbum");
+        RegisterModuleDependences("", "DKIVKEXPORTERALBUMSOnBeforeUpdate", $this->MODULE_ID, "\\dki\\vkexporter\\EventsHandlers", "onAfterUpdateAlbum");
     }
     
     public function deleteModuleDependencies () {
-        
+        UnRegisterModuleDependences("", "DKIVKEXPORTERALBUMSOnAfterAdd", $this->MODULE_ID, "\\dki\\vkexporter\\EventsHandlers", "onAfterAddAlbum");
+        UnRegisterModuleDependences("", "DKIVKEXPORTERALBUMSOnAfterUpdate", $this->MODULE_ID, "\\dki\\vkexporter\\EventsHandlers", "onAfterUpdateAlbum");
     }
     
     public function addOptions() {}

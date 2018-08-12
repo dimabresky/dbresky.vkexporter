@@ -18,9 +18,17 @@ abstract class Table {
         if (!$table) {
             
             $class = get_called_class();
-            $table = HL::compileEntity(HL::getById(\Bitrix\Main\Config\Option::get("dki.vkexporter", $class::$_option_name))->fetch())->getDataClass();
+            $table = HL::compileEntity(HL::getById(self::getTableId())->fetch())->getDataClass();
         }
         
         return new $table;
+    }
+    
+    /**
+     * @return int
+     */
+    public static function getTableId() {
+        $class = get_called_class();
+        return \Bitrix\Main\Config\Option::get("dki.vkexporter", $class::$_option_name);
     }
 }
