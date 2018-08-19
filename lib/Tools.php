@@ -2,6 +2,8 @@
 
 namespace dki\vkexporter;
 
+use Bitrix\Main\Localization\Loc;
+
 /**
  * Класс "инструментов" модуля
  *
@@ -32,9 +34,8 @@ class Tools {
      * @return array
      */
     public function getURLParametersForDel() {
-        
-        return array_merge(["iblock_id", "step", "sessid", "autosave_id", "next", "dkiTabControl_active_tab"], \array_keys((array)(new Options)->get()));
-//        return array("iblock_id", "step", "sessid", "autosave_id", "next", "dkiTabControl_active_tab", "name", "picture", "description", "price", "currency", "category", "album", "album_create_from_parent_section", );
+
+        return array_merge(["iblock_id", "step", "sessid", "autosave_id", "next", "dkiTabControl_active_tab"], \array_keys((array) (new Options)->get()));
     }
 
     /**
@@ -50,7 +51,7 @@ class Tools {
             "BYN" => "BYN",
         );
     }
-    
+
     public function getIblockProperties($iblock) {
 
         static $arProperties = array();
@@ -79,6 +80,8 @@ class Tools {
             switch ($fcode) {
 
                 case "iblock_id":
+                case "app_id":
+                case "owner_id":
                     if ($fval <= 0) {
                         $arErrors[] = strtoupper($fcode) . "_ERROR";
                     }
@@ -89,6 +92,7 @@ class Tools {
                 case "description":
                 case "price":
                 case "access_token":
+                case "app_secret":
                     if (!strlen($fval)) {
                         $arErrors[] = strtoupper($fcode) . "_ERROR";
                     }
@@ -99,7 +103,7 @@ class Tools {
                         $arErrors[] = strtoupper($fcode) . "_ERROR";
                     }
                     break;
-                    
+
                 case "category":
                     if (!isset($_SESSION["dki_VKEXPORTER_MARKET_CATEGORIES"][$fval])) {
                         $arErrors[] = strtoupper($fcode) . "_ERROR";
@@ -110,7 +114,7 @@ class Tools {
 
         return $arErrors;
     }
-    
+
     /**
      * @param string $app_id
      * @return string
@@ -130,12 +134,12 @@ class Tools {
 
         return 'https://oauth.vk.com/authorize?' . http_build_query($arParams);
     }
-    
+
     /**
      * @param string $code
      * @return string
      */
-    public static function getVkAccessTokenURL (string $code, string $app_id, string $app_secret) {
+    public static function getVkAccessTokenURL(string $code, string $app_id, string $app_secret) {
         $request = \Bitrix\Main\Application::getInstance()->getContext()->getRequest();
         $arParams = array(
             'client_id' => $app_id,
@@ -145,4 +149,21 @@ class Tools {
         );
         return 'https://oauth.vk.com/access_token?' . http_build_query($arParams);
     }
+    
+    /**
+     * @param array $errors_code
+     * @return string
+     */
+    public static function getHTMLErrors(array $errors_code) {
+        ob_start();
+        \CAdminMessage::ShowMessage(array(
+            "MESSAGE" => implode('<br>', array_map(function ($error_code) {
+                                return \Bitrix\Main\Localization\Loc::getMessage("dki_VKEXPORTER_" . $error_code);
+                            }, $errors_code)),
+            "TYPE" => "ERROR",
+            "HTML" => true
+        ));
+        return ob_get_clean();
+    }
+
 }

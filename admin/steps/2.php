@@ -31,19 +31,11 @@ else:
         $arErrors = \dki\vkexporter\Tools::checkFields($arFieldsForCheck);
         $options->save($arFieldsForCheck);
         if (empty($arErrors)) {
+            
             LocalRedirect($APPLICATION->GetCurPageParam("step=3", \dki\vkexporter\Tools::getURLParametersForDel()));
         } else {
 
-            ob_start();
-            CAdminMessage::ShowMessage(array(
-                "MESSAGE" => implode('<br>', array_map(function ($error_code) {
-                                    return \Bitrix\Main\Localization\Loc::getMessage("dki_VKEXPORTER_" . $error_code);
-                                }, $arErrors)),
-                "TYPE" => "ERROR",
-                "HTML" => true
-            ));
-            $errors = ob_get_clean();
-            $APPLICATION->AddViewContent("errors", $errors);
+            $APPLICATION->AddViewContent("errors", dki\vkexporter\Tools::getHTMLErrors($arErrors));
         }
     }
 
@@ -73,7 +65,7 @@ else:
         }
         ?>
         <tr>
-            <td width="40%"><label><?= Loc::getMessage("dki_VKEXPORTER_" . strtoupper($name) . "_FIELD_TITLE") ?>:</label></td>
+            <td width="40%"><label><?= Loc::getMessage("dki_VKEXPORTER_" . strtoupper($name) . "_FIELD_TITLE") ?><span class="red-star">*</span>:</label></td>
             <td width="60%">
                 <select name="<?= $name ?>">
                     <option value="">...</option>
@@ -85,7 +77,7 @@ else:
         </tr>
     <? endforeach ?>
     <tr>
-        <td width="40%"><label><?= Loc::getMessage("dki_VKEXPORTER_CURRENCY_FIELD_TITLE") ?>:</label></td>
+        <td width="40%"><label><?= Loc::getMessage("dki_VKEXPORTER_CURRENCY_FIELD_TITLE") ?><span class="red-star">*</span>:</label></td>
         <td width="60%">
             <select name="currency">
                 <?
@@ -97,7 +89,7 @@ else:
         </td>
     </tr>
     <tr>
-        <td width="40%"><label><?= Loc::getMessage("dki_VKEXPORTER_CATEGORY_FIELD_TITLE") ?>:</label></td>
+        <td width="40%"><label><?= Loc::getMessage("dki_VKEXPORTER_CATEGORY_FIELD_TITLE") ?><span class="red-star">*</span>:</label></td>
         <td width="60%">
             <select name="category">
                 <option value="">...</option>

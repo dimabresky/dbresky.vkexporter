@@ -5,7 +5,11 @@ use Bitrix\Main\Localization\Loc;
 
 Loc::loadMessages(__FILE__);
 
-\Bitrix\Main\Loader::includeModule("dki.vkexporter");
+$mid = "dki.vkexporter";
+
+\Bitrix\Main\Loader::includeModule($mid);
+
+$APPLICATION->AddHeadString("<link rel='stylesheet' href='/local/modules/$mid/admin/css/styles.css'>");
 
 $options = new dki\vkexporter\Options;
 $request = \Bitrix\Main\Application::getInstance()->getContext()->getRequest();
