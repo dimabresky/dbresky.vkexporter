@@ -46,7 +46,8 @@ class Options {
                         "app_id" => NULL,
                         "app_secret" => NULL,
                         "album" => NULL,
-                        "album_create_from_parent_section" => 0
+                        "album_create_from_parent_section" => 0,
+                        "owner_id" => NULL
             );
         }   
         
@@ -78,6 +79,7 @@ class Options {
                 case "album_create_from_parent_section":
                 case "app_id":
                 case "app_secret":
+                case "owner_id":
                     $this->_options->$fcode = $fval;
                     break;
             }
