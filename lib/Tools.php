@@ -114,41 +114,6 @@ class Tools {
 
         return $arErrors;
     }
-
-    /**
-     * @param string $app_id
-     * @return string
-     */
-    public static function getVkAuthorizationURL($app_id) {
-        $request = \Bitrix\Main\Application::getInstance()->getContext()->getRequest();
-        $arParams = array(
-            'client_id' => $app_id,
-            'redirect_uri' => ($request->isHttps() ? 'https://' : 'http://') . $request->getHttpHost() . "/bitrix/admin/dki_vk_access_token.php",
-            'display' => 'popup',
-            'scope' => implode(',', array('notifications', 'market', 'offline', 'stats', 'user', 'groups', 'photos')),
-            'response_type' => 'code',
-            'v' => 5.80,
-            'state' => ''
-        );
-
-
-        return 'https://oauth.vk.com/authorize?' . http_build_query($arParams);
-    }
-
-    /**
-     * @param string $code
-     * @return string
-     */
-    public static function getVkAccessTokenURL(string $code, string $app_id, string $app_secret) {
-        $request = \Bitrix\Main\Application::getInstance()->getContext()->getRequest();
-        $arParams = array(
-            'client_id' => $app_id,
-            'client_secret' => $app_secret,
-            'redirect_uri' => ($request->isHttps() ? 'https://' : 'http://') . $request->getHttpHost() . "/bitrix/admin/dki_vk_access_token.php",
-            'code' => $code
-        );
-        return 'https://oauth.vk.com/access_token?' . http_build_query($arParams);
-    }
     
     /**
      * @param array $errors_code

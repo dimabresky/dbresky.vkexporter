@@ -27,9 +27,9 @@ if ($request->isPost() && strlen($request->getPost("save")) && check_bitrix_sess
             var pd = window.opener.document;
             var option = document.createElement("option");
             var select = pd.querySelector("select[name=album]");
-            option.value = <?= $ID?>;
+            option.value = <?= $ID ?>;
             option.selected = true;
-            option.innerText = "<?= $data["UF_NAME"]?>";
+            option.innerText = "<?= $data["UF_NAME"] ?>";
             console.log(select);
             select.appendChild(option);
             select.dispatchEvent(new Event("change"));
@@ -49,7 +49,7 @@ $o_tab = new CAdminTabControl("dkiTabControl", array(
     )
         ));
 ?>
-<form action="<? $APPLICATION->GetCurPage() ?>" method="post">
+<form action="<? $APPLICATION->GetCurPage() ?>" method="post" enctype="multipart/form-data">
     <?
     echo bitrix_sessid_post();
     $o_tab->Begin();
@@ -59,9 +59,10 @@ $o_tab = new CAdminTabControl("dkiTabControl", array(
     foreach ($arFields as $arField) {
         echo $USER_FIELD_MANAGER->GetEditFormHTML($from_form, [], $arField);
     }
-    $o_tab->Buttons();?>
-    <input type="submit" name="save" value="23234<?= Loc::getMessage("dki_VKEXPORTER_SAVE_BTN_TITLE")?>" title="<?= Loc::getMessage("dki_VKEXPORTER_SAVE_BTN_TITLE")?>" class="adm-btn-save">
-    <?$o_tab->End();
+    $o_tab->Buttons();
+    ?>
+    <input type="submit" name="save" value="23234<?= Loc::getMessage("dki_VKEXPORTER_SAVE_BTN_TITLE") ?>" title="<?= Loc::getMessage("dki_VKEXPORTER_SAVE_BTN_TITLE") ?>" class="adm-btn-save">
+    <? $o_tab->End();
     ?>
 </form>
 <?

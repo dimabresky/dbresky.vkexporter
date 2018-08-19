@@ -2,6 +2,8 @@
 
 use Bitrix\Main\Localization\Loc;
 
+$gateway = new \dki\vkexporter\Gateway($options);
+
 if (!strlen($options->get()->access_token)):
     ?>
 <tr>
@@ -9,11 +11,11 @@ if (!strlen($options->get()->access_token)):
     <?= Loc::getMessage("dki_VKEXPORTER_GETTING_ACCESS_TOKEN")?>
     </td>
 </tr>
-    <script>window.jsUtils.OpenWindow('<?= \dki\vkexporter\Tools::getVkAuthorizationURL($options->get()->app_id) ?>', 700, 600);</script>
+    <script>window.jsUtils.OpenWindow('<?= $gateway->getVkAuthorizationUrl() ?>', 700, 600);</script>
 <?
 else:
     
-    if (!empty(\dki\vkexporter\Tools::checkFields(array("iblock_id" => $options->get()->iblock_id)))) {
+    if (!empty(\dki\vkexporter\Tools::checkFields(array("iblock_id" => $options->get()->iblock_id, "app_id" => $options->get()->app_id, "app_secret" => $options->get()->app_secret, "owner_id" => $options->get()->owner_id)))) {
         \LocalRedirect($APPLICATION->GetCurPageParam("step=1", \dki\vkexporter\Tools::getURLParametersForDel()));
     }
 

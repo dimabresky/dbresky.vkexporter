@@ -6,7 +6,7 @@ if ($request->get("next") && check_bitrix_sessid()) {
     $arErrors = \dki\vkexporter\Tools::checkFields(array("iblock_id" => $request->get("iblock_id"), "app_id" => $request->get("app_id"), "app_secret" => $request->get("app_secret"), "owner_id" => $request->get("owner_id")));
     if (empty($arErrors)) {
 
-        $options->save(array("iblock_id" => $request->get("iblock_id"), "app_id" => $request->get("app_id"), "app_secret" => $request->get("app_secret"), "ownwer_id" => $request->get("owner_id")));
+        $options->save(array("iblock_id" => $request->get("iblock_id"), "app_id" => $request->get("app_id"), "app_secret" => $request->get("app_secret"), "owner_id" => $request->get("owner_id")));
         LocalRedirect($APPLICATION->GetCurPageParam("step=2", \dki\vkexporter\Tools::getURLParametersForDel()));
     } else {
         $APPLICATION->AddViewContent("errors", dki\vkexporter\Tools::getHTMLErrors($arErrors));

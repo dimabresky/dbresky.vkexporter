@@ -8,11 +8,16 @@ namespace dki\vkexporter;
  * @author ИП Бреский Дмитрий Игоревич <dimabresky@gmail.com>
  */
 class Gateway {
+
+    /**
+     * @var dki\vkexporter\Options
+     */
+    protected $_options = null;
     
     /**
-     * @var string
+     * @var Bitrix\Main\Request
      */
-    protected $_access_token = null;
+    protected $_request = null;
     
     /**
      * @var string
@@ -20,15 +25,63 @@ class Gateway {
     protected $_api_url = "https://api.vk.com/method/";
     
     /**
-     * @param string $access_token
+     * @var string 
      */
-    public function __construct(string $access_token) {
-        $this->_access_token = $access_token;
+    protected $_auth_url = "https://oauth.vk.com/authorize/";
+    
+    /**
+     * @var string 
+     */
+    protected $_access_token_url = "https://oauth.vk.com/access_token";
+    
+    /**
+     * @param string $access_token
+     * @param int $app_id
+     */
+    public function __construct(\dki\vkexporter\Options $options) {
+        $this->_options = $options;
+        $this->_request = \Bitrix\Main\Application::getInstance()->getContext()->getRequest();
+    }
+
+    public function getRequestUrl(string $method, array $parameters) {
+        return $this->_api_url . "/" . $method . "?" . http_build_query(array_merge($parameters, ["v" => 5.80]));
     }
     
-    public function getRequestUrl (string $method, array $parameters) {
+    /**
+     * @return string
+     */
+    public function getVkAuthorizationUrl() {
         
-        return $this->_api_url . "/" . $method . "?" . http_build_query(array_merge($parameters, ["v" => 5.80]));
+        $arParams = array(
+            'client_id' => $this->_options->get()->app_id,
+            'redirect_uri' => ($this->_request->isHttps() ? 'https://' : 'http://') . $this->_request->getHttpHost() . "/bitrix/admin/dki_vk_access_token.php",
+            'display' => 'popup',
+            'scope' => implode(',', array('notifications', 'market', 'offline', 'stats', 'user', 'groups', 'photos')),
+            'response_type' => 'token',
+            'revoke' => 1,
+            'v' => 5.80,
+            'state' => ''
+        );
+
+
+        return $this->_auth_url . '?' . http_build_query($arParams);
+    }
+    
+    /**
+     * @return boolean
+     */
+    public function getAccessToken () {
+        
+        if ($this->_request->get("redirected") !== "yes") {
+            ?><script>window.location.href = "?" + window.location.hash.replace("#", "") + "&redirected=yes";</script><?
+            exit;
+        } elseif (strlen($this->_request->get("access_token")) > 0) {
+            $this->_options->save(array("access_token" => $this->_request->get("access_token")));
+            ?><script>window.opener.location.reload();window.close();</script><?
+            exit;
+        }
+
+        return false;
     }
     
     /**
@@ -38,28 +91,40 @@ class Gateway {
      * @return array
      * @throws \Exception
      */
-    public function getCategories (int $count = 100, int $offset = 0) : array {
-        
+    public function getCategories (int $count = 100, int $offset = 0) {
+
         $arCategories = [];
-        
+
         $parameters = [
             "access_token" => $this->_access_token,
             "count" => $count,
             "offset" => $offset
         ];
-        
+
         $response = \json_decode(\file_get_contents($this->getRequestUrl("market.getCategories", $parameters)));
 
         if (isset($response->response) && isset($response->response->items)) {
-            
+
             foreach ($response->response->items as $item) {
-                
+
                 $arCategories[$item->id] = $item->name . "[" . $item->section->name . "]";
             }
         } elseif (isset($response->error)) {
             throw new \Exception($response->error->error_msg);
         }
-        
+
         return $arCategories;
     }
+
+    public function uploadAlbumImage(int $bx_file_id) {
+
+        // get upload url
+        $response = \json_decode(\file_get_contents($this->getRequestUrl("photos.getMarketAlbumUploadServer", [
+                            "group_id" => $this->_options->get()->owner_id,
+                            "access_token" => $this->_options->get()->access_token,
+        ])));
+
+        dm([$response], false);die;
+    }
+
 }
