@@ -68,7 +68,7 @@ else:
             
     foreach ($options->get() as $name => $value):
 
-        if (in_array($name, array("iblock_id", "currency", "access_token", "app_id", "app_secret", "category", "album", "album_create_from_parent_section"))) {
+        if (in_array($name, array("iblock_id", "currency", "access_token", "app_id", "app_secret", "category", "album", "album_create_from_parent_section", "owner_id"))) {
             continue;
         }
         ?>

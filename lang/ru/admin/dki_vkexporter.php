@@ -13,6 +13,7 @@ $MESS["dki_VKEXPORTER_PICTURE_FIELD_TITLE"] = "Изображение";
 $MESS["dki_VKEXPORTER_DESCRIPTION_FIELD_TITLE"] = "Описание";
 $MESS["dki_VKEXPORTER_CURRENCY_FIELD_TITLE"] = "Укажите валюту поля цены<br>( <b><small>цены должны быть предварительно сконвертированы в указанную валюту</small></b> )";
 $MESS["dki_VKEXPORTER_PRICE_FIELD_TITLE"] = "Цена";
+$MESS["dki_VKEXPORTER_OWNER_ID_FIELD_TITLE"] = "ID Сообщества(группы)";
 $MESS["dki_VKEXPORTER_CATEGORY_FIELD_TITLE"] = "Категория";
 $MESS["dki_VKEXPORTER_NAME_FIELD"] = "Название";
 $MESS["dki_VKEXPORTER_DETAIL_PICTURE_FIELD"] = "Детальная картинка";

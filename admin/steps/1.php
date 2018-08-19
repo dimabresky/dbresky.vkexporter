@@ -2,9 +2,9 @@
 
 use Bitrix\Main\Localization\Loc;
 
-if (empty(\dki\vkexporter\Tools::checkFields(array("iblock_id" => $request->get("iblock_id"), "app_id" => $request->get("app_id"), "app_secret" => $request->get("app_secret")))) && check_bitrix_sessid()) {
+if (empty(\dki\vkexporter\Tools::checkFields(array("iblock_id" => $request->get("iblock_id"), "app_id" => $request->get("app_id"), "app_secret" => $request->get("app_secret"), "ownwer_id" => $request->get("owner_id")))) && check_bitrix_sessid()) {
 
-    $options->save(array("iblock_id" => $request->get("iblock_id"), "app_id" => $request->get("app_id"), "app_secret" => $request->get("app_secret")));
+    $options->save(array("iblock_id" => $request->get("iblock_id"), "app_id" => $request->get("app_id"), "app_secret" => $request->get("app_secret"), "ownwer_id" => $request->get("owner_id")));
     LocalRedirect($APPLICATION->GetCurPageParam("step=2", \dki\vkexporter\Tools::getURLParametersForDel()));
 }
 ?>
@@ -18,6 +18,12 @@ if (empty(\dki\vkexporter\Tools::checkFields(array("iblock_id" => $request->get(
     <td width="40%"><label><?= Loc::getMessage("dki_VKEXPORTER_APP_SECRET_FIELD_TITLE")?>:</label></td>
     <td width="60%">
         <input type="text" name="app_secret" value="<?= $options->get()->app_secret?>">
+    </td>
+</tr>
+<tr>
+    <td width="40%"><label><?= Loc::getMessage("dki_VKEXPORTER_OWNER_ID_FIELD_TITLE")?>:</label></td>
+    <td width="60%">
+        <input type="text" name="owner_id" value="<?= $options->get()->owner_id?>">
     </td>
 </tr>
 <tr>

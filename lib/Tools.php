@@ -32,8 +32,9 @@ class Tools {
      * @return array
      */
     public function getURLParametersForDel() {
-
-        return array("iblock_id", "step", "sessid", "autosave_id", "next", "dkiTabControl_active_tab", "name", "picture", "description", "price", "currency", "category", "album", "album_create_from_parent_section");
+        
+        return array_merge(["iblock_id", "step", "sessid", "autosave_id", "next", "dkiTabControl_active_tab"], \array_keys((array)(new Options)->get()));
+//        return array("iblock_id", "step", "sessid", "autosave_id", "next", "dkiTabControl_active_tab", "name", "picture", "description", "price", "currency", "category", "album", "album_create_from_parent_section", );
     }
 
     /**
