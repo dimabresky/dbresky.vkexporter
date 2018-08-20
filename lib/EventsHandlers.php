@@ -15,9 +15,14 @@ class EventsHandlers {
         if (isset($album["ID"])) {
             $options = new Options;
             $gateway = new Gateway($options);
+            $upload_image_result = new \stdClass();
             if ($album["UF_PICTURE"] > 0) {
                 
-                $gateway->uploadAlbumImage($album["UF_PICTURE"], $options->get()->owner_id);
+                $upload_image_result = $gateway->uploadAlbumImage($album["UF_PICTURE"], $options->get()->owner_id);
+            }
+            
+            if () {
+                
             }
         }
     }

@@ -52,7 +52,7 @@ else:
     
     
     if (!isset($_SESSION["dki_VKEXPORTER_MARKET_CATEGORIES"]) || !is_array($_SESSION["dki_VKEXPORTER_MARKET_CATEGORIES"]) || empty($_SESSION["dki_VKEXPORTER_MARKET_CATEGORIES"])) {
-        $gateway = new dki\vkexporter\Gateway($options->get()->access_token);
+        $gateway = new dki\vkexporter\Gateway($options);
         $_SESSION["dki_VKEXPORTER_MARKET_CATEGORIES"] = $gateway->getCategories();
     }
 
