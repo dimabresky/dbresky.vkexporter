@@ -158,7 +158,7 @@ class Gateway {
                     ])));
                     if (isset($result->response)) {
                         return $result->response[0];
-                    };
+                    }
                 }
             }
         }
