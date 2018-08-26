@@ -21,9 +21,7 @@ class EventsHandlers {
                 $upload_image_result = $gateway->uploadAlbumImage($album["UF_PICTURE"], $options->get()->owner_id);
             }
             
-            if () {
-                
-            }
+            dm($upload_image_result);
         }
     }
     

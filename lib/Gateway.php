@@ -145,10 +145,9 @@ class Gateway {
                     "http" => [
                         "method" => "POST",
                         "header" => $header,
-                        "content" => $content
+                        "content" => $body
                     ]
                 ])));
-
                 if (strlen($upload_file_result->photo)) {
                     $result = \json_decode(\file_get_contents($this->getRequestUrl("photos.saveMarketAlbumPhoto", [
                                         "group_id" => $this->_options->get()->owner_id,
@@ -157,7 +156,9 @@ class Gateway {
                                         "server" => $upload_file_result->server,
                                         "hash" => $upload_file_result->hash
                     ])));
-                    dm($result);die;
+                    if (isset($result->response)) {
+                        return $result->response[0];
+                    };
                 }
             }
         }
