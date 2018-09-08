@@ -2,6 +2,10 @@
 
 namespace dki\vkexporter;
 
+use Bitrix\Main\Localization\Loc;
+
+Loc::loadMessages(__FILE__);
+
 /**
  * Класс шлюз к сервису vk товары
  *
@@ -119,6 +123,7 @@ class Gateway {
     /**
      * @param int $bx_file_id
      * @return \stdClass
+     * @throws \Exception
      */
     public function uploadAlbumImage(int $bx_file_id) {
 
@@ -148,6 +153,7 @@ class Gateway {
                         "content" => $body
                     ]
                 ])));
+               
                 if (strlen($upload_file_result->photo)) {
                     $result = \json_decode(\file_get_contents($this->getRequestUrl("photos.saveMarketAlbumPhoto", [
                                         "group_id" => $this->_options->get()->owner_id,
@@ -156,8 +162,11 @@ class Gateway {
                                         "server" => $upload_file_result->server,
                                         "hash" => $upload_file_result->hash
                     ])));
+                    
                     if (isset($result->response)) {
                         return $result->response[0];
+                    } elseif (isset($result->error)) {
+                        throw new \Exception("SAVE_ALBUM_PHOTO_ERROR");
                     }
                 }
             }
