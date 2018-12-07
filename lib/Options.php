@@ -1,6 +1,6 @@
 <?php
 
-namespace dki\vkexporter;
+namespace dbresky\vkexporter;
 
 /**
  * Класс настроек модуля

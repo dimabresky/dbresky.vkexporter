@@ -7,19 +7,19 @@ use Bitrix\Main\Localization\Loc,
 
 Loc::loadMessages(__FILE__);
 
-class dki_vkexporter extends CModule {
+class dbresky_vkexporter extends CModule {
 
-    public $MODULE_ID = "dki.vkexporter";
+    public $MODULE_ID = "dbresky.vkexporter";
     public $MODULE_VERSION;
     public $MODULE_VERSION_DATE;
     public $MODULE_NAME;
     public $MODULE_DESCRIPTION;
     public $MODULE_GROUP_RIGHTS = "N";
-    public $namespaceFolder = "dki";
+    public $namespaceFolder = "dbresky";
     public $adminFilesList = array(
-        "dki_vkexporter.php",
-        "dki_vk_access_token.php",
-        "dki_vkexporter_add_album.php"
+        "dbresky_vkexporter.php",
+        "dbresky_vk_access_token.php",
+        "dbresky_vkexporter_add_album.php"
     );
     public $highloadblocksFiles = array();
 
@@ -32,9 +32,9 @@ class dki_vkexporter extends CModule {
             $this->MODULE_VERSION = $arModuleVersion["VERSION"];
             $this->MODULE_VERSION_DATE = $arModuleVersion["VERSION_DATE"];
         }
-        $this->MODULE_NAME = Loc::getMessage("dki_MODULE_NAME");
-        $this->MODULE_DESCRIPTION = Loc::getMessage("dki_MODULE_DESC");
-        $this->PARTNER_NAME = Loc::getMessage("dki_PARTNER_NAME");
+        $this->MODULE_NAME = Loc::getMessage("dbresky_MODULE_NAME");
+        $this->MODULE_DESCRIPTION = Loc::getMessage("dbresky_MODULE_DESC");
+        $this->PARTNER_NAME = Loc::getMessage("dbresky_PARTNER_NAME");
         $this->PARTNER_URI = "https://github.com/dimabresky/";
 
         Loader::includeModule("highloadblock");
@@ -43,11 +43,17 @@ class dki_vkexporter extends CModule {
     }
 
     public function copyFiles() {
-        
+
         foreach ($this->adminFilesList as $file) {
-            CopyDirFiles(
-                    $_SERVER["DOCUMENT_ROOT"] . "/local/modules/" . $this->MODULE_ID . "/install/admin/" . $file, $_SERVER["DOCUMENT_ROOT"] . "/bitrix/admin/" . $file, true, true
-            );
+            if (file_exists($_SERVER["DOCUMENT_ROOT"] . "/local/modules/" . $this->MODULE_ID . "/install/admin/" . $file)) {
+                CopyDirFiles(
+                        $_SERVER["DOCUMENT_ROOT"] . "/local/modules/" . $this->MODULE_ID . "/install/admin/" . $file, $_SERVER["DOCUMENT_ROOT"] . "/bitrix/admin/" . $file, true, true
+                );
+            } else {
+                CopyDirFiles(
+                        $_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/" . $this->MODULE_ID . "/install/admin/" . $file, $_SERVER["DOCUMENT_ROOT"] . "/bitrix/admin/" . $file, true, true
+                );
+            }
         }
     }
 
@@ -55,13 +61,13 @@ class dki_vkexporter extends CModule {
         foreach ($this->adminFilesList as $file) {
             DeleteDirFilesEx("/bitrix/admin/" . $file);
         }
-        
+
         return true;
     }
 
     public function DoInstall() {
         try {
-            
+
             # регистрируем модуль
             ModuleManager::registerModule($this->MODULE_ID);
 
@@ -70,10 +76,10 @@ class dki_vkexporter extends CModule {
 
             # копирование файлов
             $this->copyFiles();
-            
+
             # добавление зависимостей модуля
             $this->addModuleDependencies();
-            
+
             # добавление параметров выбора для модуля
             $this->addOptions();
         } catch (Exception $ex) {
@@ -89,13 +95,13 @@ class dki_vkexporter extends CModule {
     }
 
     public function DoUninstall() {
-        
+
         # удаляем зависимости модуля
         $this->deleteModuleDependencies();
 
         # удаление таблиц higloadblock
         $this->deleteHighloadblockTables();
-        
+
         # удаление файлов
         $this->deleteFiles();
 
@@ -106,22 +112,25 @@ class dki_vkexporter extends CModule {
 
         return true;
     }
-    
-    public function addModuleDependencies () {
-        RegisterModuleDependences("", "DKIVKEXPORTERALBUMSOnAfterAdd", $this->MODULE_ID, "\\dki\\vkexporter\\EventsHandlers", "onAfterAddAlbum");
-        RegisterModuleDependences("", "DKIVKEXPORTERALBUMSOnBeforeUpdate", $this->MODULE_ID, "\\dki\\vkexporter\\EventsHandlers", "onAfterUpdateAlbum");
-    }
-    
-    public function deleteModuleDependencies () {
-        UnRegisterModuleDependences("", "DKIVKEXPORTERALBUMSOnAfterAdd", $this->MODULE_ID, "\\dki\\vkexporter\\EventsHandlers", "onAfterAddAlbum");
-        UnRegisterModuleDependences("", "DKIVKEXPORTERALBUMSOnAfterUpdate", $this->MODULE_ID, "\\dki\\vkexporter\\EventsHandlers", "onAfterUpdateAlbum");
-    }
-    
-    public function addOptions() {}
-    
 
-    public function deleteOptions() {}
-  
+    public function addModuleDependencies() {
+        RegisterModuleDependences("", "DKIVKEXPORTERALBUMSOnAfterAdd", $this->MODULE_ID, "\\dbresky\\vkexporter\\EventsHandlers", "onAfterAddAlbum");
+        RegisterModuleDependences("", "DKIVKEXPORTERALBUMSOnBeforeUpdate", $this->MODULE_ID, "\\dbresky\\vkexporter\\EventsHandlers", "onAfterUpdateAlbum");
+    }
+
+    public function deleteModuleDependencies() {
+        UnRegisterModuleDependences("", "DKIVKEXPORTERALBUMSOnAfterAdd", $this->MODULE_ID, "\\dbresky\\vkexporter\\EventsHandlers", "onAfterAddAlbum");
+        UnRegisterModuleDependences("", "DKIVKEXPORTERALBUMSOnAfterUpdate", $this->MODULE_ID, "\\dbresky\\vkexporter\\EventsHandlers", "onAfterUpdateAlbum");
+    }
+
+    public function addOptions() {
+        
+    }
+
+    public function deleteOptions() {
+        
+    }
+
     public function createHighloadblockTables() {
 
         foreach ($this->highloadblocksFiles as $file) {
@@ -150,14 +159,14 @@ class dki_vkexporter extends CModule {
                 $arr_field["ENTITY_ID"] = str_replace("{{table_id}}", $table_id, $arr_field["ENTITY_ID"]);
 
                 if (!$oUserTypeEntity->Add($arr_field)) {
-                    throw new Exception(Loc::getMessage("dki_HL_ADD_ERROR") . $arr_field["ENTITY_ID"] . "[" . $arr_field["FIELD_NAME"] . "]" . $oUserTypeEntity->LAST_ERROR);
+                    throw new Exception(Loc::getMessage("dbresky_HL_ADD_ERROR") . $arr_field["ENTITY_ID"] . "[" . $arr_field["FIELD_NAME"] . "]" . $oUserTypeEntity->LAST_ERROR);
                 }
             }
-            
+
             if (isset($arr["items"]) && !empty($arr["items"])) {
-                
-                $entity   = Bitrix\Highloadblock\HighloadBlockTable::compileEntity( 
-                        Bitrix\Highloadblock\HighloadBlockTable::getById($table_id)->fetch());
+
+                $entity = Bitrix\Highloadblock\HighloadBlockTable::compileEntity(
+                                Bitrix\Highloadblock\HighloadBlockTable::getById($table_id)->fetch());
                 $class = $entity->getDataClass();
                 foreach ($arr["items"] as $item) {
                     $class::add($item);
@@ -207,4 +216,5 @@ class dki_vkexporter extends CModule {
         $directory = __DIR__ . "/" . $dirName;
         return array_diff(scandir($directory), array('..', '.'));
     }
+
 }

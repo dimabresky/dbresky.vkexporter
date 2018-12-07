@@ -1,10 +1,10 @@
 <?php
 
 return array(
-    "table" => "dki_vkexporter_albums",
+    "table" => "dbresky_vkexporter_albums",
     "table_data" => array(
         "NAME" => "DKIVKEXPORTERALBUMS",
-        "ERR" => "Ошибка при создании highloadblock'a dki_vkexporter_albums",
+        "ERR" => "Ошибка при создании highloadblock'a dbresky_vkexporter_albums",
         "LANGS" => array(
             "ru" => 'Таблица подборок',
             "en" => "Vkexporter albums"

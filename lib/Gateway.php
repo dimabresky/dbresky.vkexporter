@@ -1,6 +1,6 @@
 <?php
 
-namespace dki\vkexporter;
+namespace dbresky\vkexporter;
 
 use Bitrix\Main\Localization\Loc;
 
@@ -14,7 +14,7 @@ Loc::loadMessages(__FILE__);
 class Gateway {
 
     /**
-     * @var dki\vkexporter\Options
+     * @var dbresky\vkexporter\Options
      */
     protected $_options = null;
 
@@ -42,7 +42,7 @@ class Gateway {
      * @param string $access_token
      * @param int $app_id
      */
-    public function __construct(\dki\vkexporter\Options $options) {
+    public function __construct(\dbresky\vkexporter\Options $options) {
         $this->_options = $options;
         $this->_request = \Bitrix\Main\Application::getInstance()->getContext()->getRequest();
     }
@@ -58,7 +58,7 @@ class Gateway {
 
         $arParams = array(
             'client_id' => $this->_options->get()->app_id,
-            'redirect_uri' => ($this->_request->isHttps() ? 'https://' : 'http://') . $this->_request->getHttpHost() . "/bitrix/admin/dki_vk_access_token.php",
+            'redirect_uri' => ($this->_request->isHttps() ? 'https://' : 'http://') . $this->_request->getHttpHost() . "/bitrix/admin/dbresky_vk_access_token.php",
             'display' => 'popup',
             'scope' => implode(',', array('notifications', 'market', 'offline', 'stats', 'user', 'groups', 'photos')),
             'response_type' => 'token',

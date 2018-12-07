@@ -2,18 +2,18 @@
 
 $classes = array(
     
-    "dki\\vkexporter\\Gateway" => "lib/Gateway.php",
-    "dki\\vkexporter\\Options" => "lib/Options.php",
-    "dki\\vkexporter\\EventsHandlers" => "lib/EventsHandlers.php",
-    "dki\\vkexporter\\Tools" => "lib/Tools.php",
-    "dki\\vkexporter\\tables\\Options" => "lib/tables/Options.php",
-    "dki\\vkexporter\\tables\\Albums" => "lib/tables/Albums.php",
-    "dki\\vkexporter\\tables\\Table" => "lib/tables/Table.php",
+    "dbresky\\vkexporter\\Gateway" => "lib/Gateway.php",
+    "dbresky\\vkexporter\\Options" => "lib/Options.php",
+    "dbresky\\vkexporter\\EventsHandlers" => "lib/EventsHandlers.php",
+    "dbresky\\vkexporter\\Tools" => "lib/Tools.php",
+    "dbresky\\vkexporter\\tables\\Options" => "lib/tables/Options.php",
+    "dbresky\\vkexporter\\tables\\Albums" => "lib/tables/Albums.php",
+    "dbresky\\vkexporter\\tables\\Table" => "lib/tables/Table.php",
     
 );
 
 
-CModule::AddAutoloadClasses("dki.vkexporter", $classes);
+CModule::AddAutoloadClasses("dbresky.vkexporter", $classes);
 
 \Bitrix\Main\Loader::includeModule("iblock");
 \Bitrix\Main\Loader::includeModule("highloadblock");

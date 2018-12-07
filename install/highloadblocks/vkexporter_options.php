@@ -1,10 +1,10 @@
 <?php
 
 return array(
-    "table" => "dki_vkexporter_options",
+    "table" => "dbresky_vkexporter_options",
     "table_data" => array(
         "NAME" => "DKIVKEXPORTEROPTIONS",
-        "ERR" => "Ошибка при создании highloadblock'a dki_vkexporter_options",
+        "ERR" => "Ошибка при создании highloadblock'a dbresky_vkexporter_options",
         "LANGS" => array(
             "ru" => 'Таблица настроек экспорта данных',
             "en" => "Vkexporter options"

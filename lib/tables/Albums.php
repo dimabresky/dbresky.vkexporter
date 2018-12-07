@@ -1,6 +1,6 @@
 <?php
 
-namespace dki\vkexporter\tables;
+namespace dbresky\vkexporter\tables;
 
 /**
  * Таблица подборок

@@ -5,25 +5,25 @@ use Bitrix\Main\Localization\Loc;
 
 Loc::loadMessages(__FILE__);
 
-$mid = "dki.vkexporter";
+$mid = "dbresky.vkexporter";
 
 \Bitrix\Main\Loader::includeModule($mid);
 
-$APPLICATION->AddHeadString("<link rel='stylesheet' href='/local/modules/$mid/admin/css/styles.css'>");
+dbresky\vkexporter\Tools::loadCss("/$mid/admin/css/styles.css");
 
-$options = new dki\vkexporter\Options;
+$options = new dbresky\vkexporter\Options;
 $request = \Bitrix\Main\Application::getInstance()->getContext()->getRequest();
 
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_admin_after.php");
 
 $step = $request->get("step") > 1 ? intVal($request->get("step")) : 1;
 
-$o_tab = new CAdminTabControl("dkiTabControl", array(
+$o_tab = new CAdminTabControl("dbreskyTabControl", array(
     array(
         "DIV" => "vkexporter",
-        "TAB" => Loc::getMessage("dki_VKEXPORTER_TAB_TITLE"),
+        "TAB" => Loc::getMessage("dbresky_VKEXPORTER_TAB_TITLE"),
         "ICON" => "",
-        "TITLE" => Loc::getMessage("dki_VKEXPORTER_TAB_SUBTITLE", array("#step#" => $step))
+        "TITLE" => Loc::getMessage("dbresky_VKEXPORTER_TAB_SUBTITLE", array("#step#" => $step))
     )
         ));
 $APPLICATION->ShowViewContent('errors');

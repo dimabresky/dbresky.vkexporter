@@ -4,11 +4,11 @@ require_once($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_ad
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_popup_admin.php");
 
 use Bitrix\Main\Localization\Loc;
-use dki\vkexporter\tables\Albums;
+use dbresky\vkexporter\tables\Albums;
 
 Loc::loadMessages(__FILE__);
 
-Bitrix\Main\Loader::includeModule("dki.vkexporter");
+Bitrix\Main\Loader::includeModule("dbresky.vkexporter");
 
 global $USER_FIELD_MANAGER;
 
@@ -31,7 +31,7 @@ try {
                 option.value = <?= $ID ?>;
                 option.selected = true;
                 option.innerText = "<?= $data["UF_NAME"] ?>";
-                console.log(select);
+                
                 select.appendChild(option);
                 select.dispatchEvent(new Event("change"));
                 window.close();
@@ -41,12 +41,12 @@ try {
         }
     }
 
-    $o_tab = new CAdminTabControl("dkiTabControl", array(
+    $o_tab = new CAdminTabControl("dbreskyTabControl", array(
         array(
             "DIV" => "vkexporter",
-            "TAB" => Loc::getMessage("dki_VKEXPORTER_ALBUM_TAB_TITLE"),
+            "TAB" => Loc::getMessage("dbresky_VKEXPORTER_ALBUM_TAB_TITLE"),
             "ICON" => "",
-            "TITLE" => Loc::getMessage("dki_VKEXPORTER_ALBUM_TAB_SUBTITLE")
+            "TITLE" => Loc::getMessage("dbresky_VKEXPORTER_ALBUM_TAB_SUBTITLE")
         )
     ));
     ?>
@@ -62,12 +62,12 @@ try {
         }
         $o_tab->Buttons();
         ?>
-        <input type="submit" name="save" value="23234<?= Loc::getMessage("dki_VKEXPORTER_SAVE_BTN_TITLE") ?>" title="<?= Loc::getMessage("dki_VKEXPORTER_SAVE_BTN_TITLE") ?>" class="adm-btn-save">
+        <input type="submit" name="save" value="23234<?= Loc::getMessage("dbresky_VKEXPORTER_SAVE_BTN_TITLE") ?>" title="<?= Loc::getMessage("dbresky_VKEXPORTER_SAVE_BTN_TITLE") ?>" class="adm-btn-save">
         <? $o_tab->End();
         ?>
     </form>
     <?
 } catch (\Exception $ex) {
-    echo \dki\vkexporter\Tools::getHTMLErrors([$ex->getMessage()]);
+    echo \dbresky\vkexporter\Tools::getHTMLErrors([$ex->getMessage()]);
 }
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/epilog_popup_admin.php");

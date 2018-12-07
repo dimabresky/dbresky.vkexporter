@@ -8,16 +8,16 @@ use Bitrix\Main\Localization\Loc;
 
 Loc::loadMessages(__FILE__);
 
-Bitrix\Main\Loader::includeModule("dki.vkexporter");
+Bitrix\Main\Loader::includeModule("dbresky.vkexporter");
 
 $request = \Bitrix\Main\Application::getInstance()->getContext()->getRequest();
 
-$options = new \dki\vkexporter\Options;
+$options = new \dbresky\vkexporter\Options;
 
-(new \dki\vkexporter\Gateway($options))->getAccessToken();
+(new \dbresky\vkexporter\Gateway($options))->getAccessToken();
 
 CAdminMessage::ShowMessage(array(
-    "MESSAGE" => Loc::getMessage("dki_VKEXPORTER_ACCESS_TOKEN_ERROR"),
+    "MESSAGE" => Loc::getMessage("dbresky_VKEXPORTER_ACCESS_TOKEN_ERROR"),
     "TYPE" => "ERROR",
     "HTML" => true
 ));

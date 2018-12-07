@@ -1,6 +1,6 @@
 <?php
 
-namespace dki\vkexporter\tables;
+namespace dbresky\vkexporter\tables;
 
 use Bitrix\Highloadblock\HighloadBlockTable as HL;
 
@@ -29,6 +29,6 @@ abstract class Table {
      */
     public static function getTableId() {
         $class = get_called_class();
-        return \Bitrix\Main\Config\Option::get("dki.vkexporter", $class::$_option_name);
+        return \Bitrix\Main\Config\Option::get("dbresky.vkexporter", $class::$_option_name);
     }
 }

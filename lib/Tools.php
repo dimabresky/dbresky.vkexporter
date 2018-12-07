@@ -1,6 +1,6 @@
 <?php
 
-namespace dki\vkexporter;
+namespace dbresky\vkexporter;
 
 use Bitrix\Main\Localization\Loc;
 
@@ -35,7 +35,7 @@ class Tools {
      */
     public function getURLParametersForDel() {
 
-        return array_merge(["iblock_id", "step", "sessid", "autosave_id", "next", "dkiTabControl_active_tab"], \array_keys((array) (new Options)->get()));
+        return array_merge(["iblock_id", "step", "sessid", "autosave_id", "next", "dbreskyTabControl_active_tab"], \array_keys((array) (new Options)->get()));
     }
 
     /**
@@ -105,7 +105,7 @@ class Tools {
                     break;
 
                 case "category":
-                    if (!isset($_SESSION["dki_VKEXPORTER_MARKET_CATEGORIES"][$fval])) {
+                    if (!isset($_SESSION["dbresky_VKEXPORTER_MARKET_CATEGORIES"][$fval])) {
                         $arErrors[] = strtoupper($fcode) . "_ERROR";
                     }
                     break;
@@ -114,7 +114,7 @@ class Tools {
 
         return $arErrors;
     }
-    
+
     /**
      * @param array $errors_code
      * @return string
@@ -123,12 +123,35 @@ class Tools {
         ob_start();
         \CAdminMessage::ShowMessage(array(
             "MESSAGE" => implode('<br>', array_map(function ($error_code) {
-                                return \Bitrix\Main\Localization\Loc::getMessage("dki_VKEXPORTER_" . $error_code);
+                                return \Bitrix\Main\Localization\Loc::getMessage("dbresky_VKEXPORTER_" . $error_code);
                             }, $errors_code)),
             "TYPE" => "ERROR",
             "HTML" => true
         ));
         return ob_get_clean();
+    }
+
+    /**
+     * @global \CMain $APPLICATION
+     * @param string $rel_path
+     */
+    public static function loadCss($rel_path) {
+
+        global $APPLICATION;
+
+        if (\file_exists($_SERVER['DOCUMENT_ROOT'] . '/local/modules' . $rel_path)) {
+            
+            $path = $_SERVER['DOCUMENT_ROOT'] . '/local/modules' . $rel_path;
+        } else {
+
+            $path = $_SERVER['DOCUMENT_ROOT'] . '/bitrix/modules' . $rel_path;
+        }
+
+        ob_start();
+        include_once $path;
+        $styles = ob_get_clean();
+
+        $APPLICATION->AddHeadString("<style>$styles</style>");
     }
 
 }
